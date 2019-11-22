@@ -15,16 +15,14 @@ const pool = new Pool({ connectionString })
 
 describe("Search all shoes Test", function () {
     beforeEach(async function () {
-        // await pool.query("DELETE FROM join_tables");
-        // await pool.query("DELETE FROM  working_days");
-        // await pool.query("DELETE FROM  user_names");
+        //delete before execution
     });
 
     it("should be able to show all the shoes in the database when search all is executed ", async function () {
-        let waiter_shift = Search_shoes(pool);
+        let search_all = Search_shoes(pool);
 
-        // let waiters = await waiter_shift.week();
-        assert.equal('hello', 'hello');
+        let all_shoes = await search_all.all();
+        assert.equal(all_shoes.length, 3);
     });
 
     after(function () {
