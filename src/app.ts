@@ -1,5 +1,7 @@
 import express from 'express';
-import pg from 'pg'
+import pg from 'pg';
+import Seearch_engine from '../services/search_engine';
+import Routes from '../routes/index';
 
 const { Pool } = pg;
 
@@ -16,8 +18,13 @@ const pool = new Pool({
     ssl: useSSL
 });
 
+const search = new Seearch_engine(pool);
+const routing = new Routes(search)
 
 const app = express();
+
+app.use(express.static('client'))
+
 const PORT = process.env.PORT || 3000;
 app.get('/', (req: any, res: any) => {
     res.send('Welcome Sbu!');

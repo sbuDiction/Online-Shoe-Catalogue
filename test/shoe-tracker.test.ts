@@ -1,5 +1,5 @@
 import assert from 'assert';
-import Search_shoes from '../services/search-shoes';
+import Search from "../services/search_engine";
 import pg from "pg";
 
 const Pool = pg.Pool
@@ -19,56 +19,56 @@ describe("Search all shoes Test", function () {
     });
 
     it("should be able to show all the shoes in the database when search all is executed ", async function () {
-        let search_all = Search_shoes(pool);
+        let search_for_shoe = new Search(pool);
 
-        let all_shoes = await search_all.all();
+        let all_shoes = await search_for_shoe.search();
         assert.equal(all_shoes.length, 4);
     });
 
     describe("Search by size Test", function () {
         it("should be able to show only shoes that are from the size that was selected if size 7 was selected ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.by_size(7);
+            let all_shoes = await search_for_shoe.size(7);
             assert.equal(all_shoes.length, 1);
         });
 
         it("should be able to show only shoes that are from the size that was selected if size 8 was selected ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.by_size(8);
+            let all_shoes = await search_for_shoe.size(8);
             assert.equal(all_shoes.length, 1);
         });
     });
 
     describe("Search by brand Test", function () {
         it("should be able to show only shoes that are from Vans ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.by_brand('Vans');
+            let all_shoes = await search_for_shoe.brand('Vans');
             assert.equal(all_shoes.length, 1);
         });
 
         it("should be able to show only shoes that are from Puma ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.by_brand('Puma');
+            let all_shoes = await search_for_shoe.brand('Puma');
             assert.equal(all_shoes.length, 1);
         });
     });
 
     describe("Search by brand and size Test", function () {
         it("should be able to show only shoes that are from Vans and size 6 ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.brand_and_size('Vans', 6);
+            let all_shoes = await search_for_shoe.brand_and_size('Vans', 6);
             assert.equal(all_shoes.length, 1);
         });
 
         it("should be able to show only shoes that are from Converse and size 8 ", async function () {
-            let search_all = Search_shoes(pool);
+            let search_for_shoe = new Search(pool);
 
-            let all_shoes = await search_all.brand_and_size('Converse', 8);
+            let all_shoes = await search_for_shoe.brand_and_size('Converse', 8);
             assert.equal(all_shoes.length, 1);
         });
     });

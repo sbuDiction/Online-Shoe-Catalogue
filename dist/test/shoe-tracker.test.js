@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert_1 = __importDefault(require("assert"));
-const search_shoes_1 = __importDefault(require("../services/search-shoes"));
+const search_engine_1 = __importDefault(require("../services/search_engine"));
 const pg_1 = __importDefault(require("pg"));
 const Pool = pg_1.default.Pool;
 let useSSL = false;
@@ -26,16 +26,62 @@ const pool = new Pool({ connectionString });
 describe("Search all shoes Test", function () {
     beforeEach(function () {
         return __awaiter(this, void 0, void 0, function* () {
-            // await pool.query("DELETE FROM join_tables");
-            // await pool.query("DELETE FROM  working_days");
-            // await pool.query("DELETE FROM  user_names");
+            //delete before execution
         });
     });
     it("should be able to show all the shoes in the database when search all is executed ", function () {
         return __awaiter(this, void 0, void 0, function* () {
-            let waiter_shift = search_shoes_1.default(pool);
-            // let waiters = await waiter_shift.week();
-            assert_1.default.equal('hello', 'hello');
+            let search_for_shoe = new search_engine_1.default(pool);
+            let all_shoes = yield search_for_shoe.search();
+            assert_1.default.equal(all_shoes.length, 4);
+        });
+    });
+    describe("Search by size Test", function () {
+        it("should be able to show only shoes that are from the size that was selected if size 7 was selected ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.size(7);
+                assert_1.default.equal(all_shoes.length, 1);
+            });
+        });
+        it("should be able to show only shoes that are from the size that was selected if size 8 was selected ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.size(8);
+                assert_1.default.equal(all_shoes.length, 1);
+            });
+        });
+    });
+    describe("Search by brand Test", function () {
+        it("should be able to show only shoes that are from Vans ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.brand('Vans');
+                assert_1.default.equal(all_shoes.length, 1);
+            });
+        });
+        it("should be able to show only shoes that are from Puma ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.brand('Puma');
+                assert_1.default.equal(all_shoes.length, 1);
+            });
+        });
+    });
+    describe("Search by brand and size Test", function () {
+        it("should be able to show only shoes that are from Vans and size 6 ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.brand_and_size('Vans', 6);
+                assert_1.default.equal(all_shoes.length, 1);
+            });
+        });
+        it("should be able to show only shoes that are from Converse and size 8 ", function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                let search_for_shoe = new search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.brand_and_size('Converse', 8);
+                assert_1.default.equal(all_shoes.length, 1);
+            });
         });
     });
     after(function () {
