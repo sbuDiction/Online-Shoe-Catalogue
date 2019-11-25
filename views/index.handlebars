@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Welcome</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var content = [
+                {
+                    title: 'Nike'
+                },
+                { title: 'Vans' },
+
+                { title: 'Adidas' },
+
+                { title: 'Puma' },
+
+                { title: 'Converse' },
+
+                { title: 'Gucci' },
+            ];
+
+            $('.ui.search')
+                .search({
+                    type: 'standard',
+                    source: content,
+                    searchFields: ['title'],
+                });
+
+        });
+    </script>
+    <style>
+        body {
+          /*  background-color: rgb(3, 71, 71);*/
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ui container">
+
+        <h1 style="padding-left: 30%;" class="heading">Online shoe catalogue</h1>
+        <div class="ui search">
+            <div class="ui icon input">
+                <input class="prompt" type="text" name="search_all" placeholder="Search shoes...">
+                <i style="color: red;" class="search icon"></i>
+            </div>
+            <div class="results"></div>
+        </div>
+
+
+
+    </div>
+
+
+</body>
+
+</html>

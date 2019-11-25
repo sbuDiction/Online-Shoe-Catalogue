@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "tsc && node dist/src/app.js",
+    "beta": " nodemon",
     "test": "ts-mocha test/*.ts"
   },
   "repository": {

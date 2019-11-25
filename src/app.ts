@@ -3,6 +3,7 @@ import pg from 'pg';
 import Seearch_engine from '../services/search_engine';
 import Routes from '../routes/index';
 import handlebars from 'express-handlebars';
+import bodyParser from 'body-parser';
 
 const app = express();
 
@@ -14,6 +15,9 @@ const handlebarSetup = handlebars({
 
 app.engine("handlebars", handlebarSetup);
 app.set("view engine", "handlebars");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const { Pool } = pg;
 
@@ -37,9 +41,7 @@ const routing = new Routes(search)
 app.use(express.static('client'))
 
 const PORT = process.env.PORT || 3000;
-app.get('/', (req: any, res: any) => {
-    res.send('Welcome Sbu!');
-});
+app.get('/', routing.index)
 
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`)
