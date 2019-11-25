@@ -13,15 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const search_engine_1 = __importDefault(require("../services/search_engine"));
+// import { Pool } from 'pg';
+// const engine = new search(Pool)
 class Routes {
     constructor(pool) {
-        this.engine = new search_engine_1.default(this.pool);
         this.pool;
     }
-    index(req, res) {
+    index(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            // this.engine.
-            res.render('index');
+            const engine = new search_engine_1.default(this.pool);
+            try {
+                // console.log(engine.display_brand());
+                res.render('index');
+            }
+            catch (error) {
+                next(error);
+            }
         });
     }
 }

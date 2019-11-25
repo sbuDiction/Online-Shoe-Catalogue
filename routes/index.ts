@@ -1,16 +1,23 @@
 import search from '../services/search_engine'
+// import { Pool } from 'pg';
+
+// const engine = new search(Pool)
 
 export default class Routes {
-    private pool: any;
-    constructor(pool) {
-        this.pool
-    }
 
-    engine = new search(this.pool)
 
-    async index(req: any, res: any) {
-        // this.engine.
-        res.render('index')
+    async index(req: any, res: any, next: any) {
+        // const engine = new search(this.pool)
+        try {
+            
+            // console.log(engine.display_brand());
+            res.render('index')
+
+        } catch (error) {
+
+            next(error)
+
+        }
     }
 
 }

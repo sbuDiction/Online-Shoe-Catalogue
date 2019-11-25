@@ -34,14 +34,39 @@ const pool = new Pool({
     ssl: useSSL
 });
 
-const search = new Seearch_engine(pool);
-const routing = new Routes(search)
+const engine = new Seearch_engine(pool);
+engine.display_brand()
+// const routing = new Routes(engine);
 
 
 app.use(express.static('client'))
 
 const PORT = process.env.PORT || 3000;
-app.get('/', routing.index)
+
+
+app.get('/', async function (req: any, res: any) {
+    const brand = await engine.display_brand();
+    const colors = await engine.display_color();
+    const sizes = await engine.display_size()
+    const results = await engine.display_shoes()
+
+    // const color = req.params.color
+    console.log(results, 'yes');
+
+    // const results = await engine.brand_and_size()
+    res.render('index', { brands: brand, colors: colors, size: sizes, results: results })
+})
+
+app.post('/stock', async function (req: any, res: any) {
+    // console.log(req.body);
+    const color: string = req.body.color;
+    const brands: string = req.body.brand;
+    const size: number = Number(req.body.size);
+    console.log(req.body, 'this');
+
+    await engine.brand_and_size(brands, size)
+    res.redirect('/')
+})
 
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`)

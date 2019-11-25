@@ -37,6 +37,25 @@ class search_engine {
             return brand_and_size.rows;
         });
     }
+    display_brand() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const stock = yield this.pool.query(`SELECT * FROM brands_table`);
+            // console.log(stock.rows);
+            return stock.rows;
+        });
+    }
+    display_size() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const stock = yield this.pool.query(`SELECT * FROM size_table`);
+            return stock.rows;
+        });
+    }
+    display_color() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const stock = yield this.pool.query(`SELECT * FROM colors_table`);
+            return stock.rows;
+        });
+    }
 }
 exports.default = search_engine;
 //# sourceMappingURL=search_engine.js.map

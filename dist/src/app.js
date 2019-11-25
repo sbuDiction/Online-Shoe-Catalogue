@@ -30,8 +30,8 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
-const search = new search_engine_1.default(pool);
-const routing = new index_1.default(search);
+const engine = new search_engine_1.default(pool);
+const routing = new index_1.default(engine);
 app.use(express_1.default.static('client'));
 const PORT = process.env.PORT || 3000;
 app.get('/', routing.index);
