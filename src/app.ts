@@ -2,8 +2,10 @@ import express from 'express';
 import pg from 'pg';
 import Seearch_engine from '../services/search_engine';
 import Routes from '../routes/index';
+import search_api from '../api/search_api'
 import handlebars from 'express-handlebars';
 import bodyParser from 'body-parser';
+const axios = require('axios').default;
 
 const app = express();
 
@@ -34,9 +36,9 @@ const pool = new Pool({
     ssl: useSSL
 });
 
-const engine = new Seearch_engine(pool);
-engine.display_brand()
-// const routing = new Routes(engine);
+const engine = Seearch_engine(pool);
+const routing = Routes(engine);
+const api = search_api(engine)
 
 
 app.use(express.static('client'))
@@ -44,29 +46,15 @@ app.use(express.static('client'))
 const PORT = process.env.PORT || 3000;
 
 
-app.get('/', async function (req: any, res: any) {
-    const brand = await engine.display_brand();
-    const colors = await engine.display_color();
-    const sizes = await engine.display_size()
-    const results = await engine.display_shoes()
+app.get('/', routing.index)
+app.post('/stock', routing.search)
 
-    // const color = req.params.color
-    console.log(results, 'yes');
-
-    // const results = await engine.brand_and_size()
-    res.render('index', { brands: brand, colors: colors, size: sizes, results: results })
-})
-
-app.post('/stock', async function (req: any, res: any) {
-    // console.log(req.body);
-    const color: string = req.body.color;
-    const brands: string = req.body.brand;
-    const size: number = Number(req.body.size);
-    console.log(req.body, 'this');
-
-    await engine.brand_and_size(brands, size)
-    res.redirect('/')
-})
+//api routes
+app.get('/api/shoes', api.all)
+app.get('/api/dropdown/color', api.color_dropdown)
+app.get('/api/dropdown/brand', api.brand_dropdown)
+app.get('/api/dropdown/size', api.size_dropdown)
+app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size)
 
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`)

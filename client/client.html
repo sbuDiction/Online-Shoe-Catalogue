@@ -1,12 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <style>
+        body {
+            background-color: rgba(22, 21, 21, 0.87);
+            background-image: url(/media/sneaker.jpeg);
+            background-repeat: no-repeat;
+            background-size: 40%;
+            background-position: center;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="ui loading container">
+        <div class="row">
+            <div class="col-12">
+                <div class="ui secondary pointing menu">
+                    <a style="color: white;" class="active item">
+                        Home
+                    </a>
+                    <div class="right  menu">
+                        <a style="color: white;" class="ui item">Checkout<i class="shopping cart icon"></i><span><strong
+                                    style="color: tomato;">5</strong></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for=""><span style="color: rgba(255, 255, 255, 0.733);"><small>Search whats in
+                            stock!!</small></span></label>
+                <div class="ui search">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" name="search_all" placeholder="Search shoes...">
+                        <i style="color: red;" class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h1 style="color:rgb(248, 248, 248)" class="heading">Online shoe catalogue</h1>
+            </div>
+            <div class="w-100"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div style="padding-top: 5%;" class="color-filter">
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="color">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Colors</div>
+                        <div class="menu color_template">
+                            <script type="text/x-template" class="template_color">
+                                {{#each color}}
+                                <div class="item" data-value="{{colour}}">{{colour}}</div>
+                                {{/each}}
+                                 </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div style="padding-top: 5%;" class="size-filter">
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="brand">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Brand</div>
+                        <div class="menu brandData">
+                            <script type="text/x-template" class="brandTemplate">
+                                {{#each brand}}
+                                <div class="item" data-value="{{brand}}">{{brand}}</div>
+                                {{/each}}
+                                </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div style="padding-top: 5%;" class="size-filter">
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="size">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Size</div>
+                        <div class="menu sizeData">
+                            <script type="text/x-template" class="sizeTemplate">
+                                {{#each sizes}}
+                                <div class="item" data-value="{{size}}">{{size}}</div>
+                                {{/each}}
+                                </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div style="padding-top: 3%;" class="justify-content-center">
+                    <button type="submit" class="ui vertical animated button searchBtn" tabindex="0">
+                        <div class="hidden content">Search</div>
+                        <div class="visible content">
+                            <i class="search icon"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row shoeData">
+            <script type="text/x-template" class="shoesTemplate">
+            {{#each results}}
+            <div class="col-sm">
+                <div style="padding-top: 2%;">
+                    <div class="ui raised card">
+                        <div class="image">
+                            <div class="ui placeholder">
+                                <div class="square image">
+                                    <img class="ui image" src="{{image1}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="ui placeholder">
+                                <div class="header">
+                                    <div class="very short line">
+                                        <h3>{{brand}}</h3>
+                                    </div>
+                                    <div class="medium line">
+                                        <h4>R {{price}} </h4>
+                                    </div>
+                                </div>
+                                <div class="paragraph">
+                                    <div class="short line">
+                                        <h5>Stock: {{stock}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button type="submit" class="ui vertical animated green button" tabindex="0">
+                                <div class="visible content">Add to cart</div>
+                                <div class="hidden content">
+                                    <i class="cart icon"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </script>
+        </div>
+    </div>
+
+
+
     
+
+
 </body>
+<script src="/javaScript/client.js"></script>
+
 </html>

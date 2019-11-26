@@ -1,23 +1,34 @@
-import search from '../services/search_engine'
-// import { Pool } from 'pg';
-
-// const engine = new search(Pool)
-
-export default class Routes {
-
-
-    async index(req: any, res: any, next: any) {
-        // const engine = new search(this.pool)
+export default function routes(engine: any) {
+    const index = async (req: any, res: any, next: any) => {
         try {
-            
-            // console.log(engine.display_brand());
-            res.render('index')
-
+            let colors: any = await engine.color()
+            const sizes: any = await engine.size()
+            const brand: any = await engine.brand()
+            const results: any = await engine.results()
+            let shoe: any;
+            results.forEach((element: any) => {
+                shoe = element
+            });
+            res.render('index', { brands: brand, colors: colors, size: sizes, results: shoe })
         } catch (error) {
-
             next(error)
-
         }
     }
 
+    const search = async (req: any, res: any, next: any) => {
+        try {
+            const color: string = req.body.color;
+            const brands: string = req.body.brand;
+            const size: number = Number(req.body.size);
+
+            await engine.search(brands, size)
+            res.redirect('/')
+        } catch (error) {
+            next(error)
+        }
+    }
+    return {
+        index,
+        search
+    }
 }

@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet" />
+
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -55,43 +56,43 @@
 </head>
 
 <body>
-
     <div class="ui container">
-        <div class="ui secondary pointing menu">
-            <a style="color: white;" class="active item">
-                Home
-            </a>
-            {{!-- <a class="item">
-                Messages
-            </a>
-            <a class="item">
-                Friends
-            </a> --}}
-            <div class="right menu">
-                <a style="color: white;" class="ui item">Checkout<i class="shopping cart icon"></i><span><strong
-                            style="color: tomato;">5</strong></span></a>
-            </div>
-        </div>
-        {{!-- <div class="ui segment">
-            <p></p>
-        </div> --}}
-
-        <h1 style="padding-left: 30%;color:rgb(248, 248, 248)" class="heading">Online shoe catalogue</h1>
-
-        <label for=""><span style="color: rgba(255, 255, 255, 0.733);"><small>Search whats in
-                    stock!!</small></span></label>
-        <div class="ui search">
-            <div class="ui icon input">
-                <input class="prompt" type="text" name="search_all" placeholder="Search shoes...">
-                <i style="color: red;" class="search icon"></i>
-            </div>
-            <div class="results"></div>
-        </div>
-        <form action="/stock" method="POST">
-            <div class="ui four column grid">
-                <div class="column">
+        <div class="row">
+            <div class="col-12">
+                <div class="ui secondary pointing menu">
+                    <a style="color: white;" class="active item">
+                        Home
+                    </a>
+                    <div class="right menu">
+                        <a style="color: white;" class="ui item">Checkout<i class="shopping cart icon"></i><span><strong
+                                    style="color: tomato;">5</strong></span></a>
+                    </div>
                 </div>
-                <div class="column">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for=""><span style="color: rgba(255, 255, 255, 0.733);"><small>Search whats in
+                            stock!!</small></span></label>
+                <div class="ui search">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" name="search_all" placeholder="Search shoes...">
+                        <i style="color: red;" class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h1 style="color:rgb(248, 248, 248)" class="heading">Online shoe catalogue</h1>
+            </div>
+            <div class="w-100"></div>
+        </div>
+
+        <form action="/stock" method="POST">
+            <div class="row">
+                <div class="col-sm">
                     <div style="padding-top: 5%;" class="color-filter">
                         <div class="ui selection dropdown">
                             <input type="hidden" name="color">
@@ -105,7 +106,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+
+                <div class="col-sm">
                     <div style="padding-top: 5%;" class="size-filter">
                         <div class="ui selection dropdown">
                             <input type="hidden" name="brand">
@@ -119,7 +121,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+
+                <div class="col-sm">
                     <div style="padding-top: 5%;" class="size-filter">
                         <div class="ui selection dropdown">
                             <input type="hidden" name="size">
@@ -133,132 +136,70 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <div style="padding-top: 5%;padding-left:0%" class="">
-                            <button type="submit" class="positive ui button">
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div style="padding-top: 3%;padding-left:%" class="justify-content-center">
+                        <button type="submit" class="ui vertical animated button" tabindex="0">
+                            <div class="hidden content">Search</div>
+                            <div class="visible content">
                                 <i class="search icon"></i>
-                                Search
-                            </button>
-                        </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
 
-        <div style="width: 70%;padding-left:" class="">
-            <div class="ui three doubling stackable cards">
-                {{#each results}}
-                <div class="ui card">
-                    <div class="image">
-
-                        <div class="ui placeholder">
-                            <div class="ui blue ribbon label">
-                                <img src="https://img.icons8.com/ios-filled/64/000000/sneakers.png"> Mens shoes
-                            </div>
-                            <div class="square image">
-
-                                <img class="ui image" src="/media/vans.jpeg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui placeholder">
-                            <div class="header">
-                                <div class="very short line">
-                                    <h3>{{brand}}</h3>
-                                </div>
-                                <div class="medium line">
-                                    <h4>R {{price}} </h4>
-                                </div>
-                            </div>
-                            <div class="paragraph">
-                                <div class="short line">
-                                    <h5>Stock: 2</h5>
+        <div class="row">
+            {{#each results}}
+            <div class="col-sm">
+                <div style="padding-top: 2%;">
+                    <div class="ui raised card">
+                        <div class="image">
+                            <div class="ui placeholder">
+                                <div class="square image">
+                                    <img class="ui image" src="/media/vans.jpegll">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="extra content">
-                        <div class="ui primary button">Buy</div>
-                        <div class="ui button">Remove</div>
+                        <div class="content">
+                            <div class="ui placeholder">
+                                <div class="header">
+                                    <div class="very short line">
+                                        <h3>{{brand}}</h3>
+                                    </div>
+                                    <div class="medium line">
+                                        <h4>R {{price}} </h4>
+                                    </div>
+                                </div>
+                                <div class="paragraph">
+                                    <div class="short line">
+                                        <h5>Stock: 2</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button type="submit" class="ui vertical animated orange button" tabindex="0">
+                                <div class="visible content">Add to cart</div>
+                                <div class="hidden content">
+                                    <i class="cart icon"></i>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                {{/each}}
-
-                {{!-- <div class="ui card">
-                    <div class="image">
-                        <div class="ui placeholder">
-                            <div class="ui blue ribbon label">
-                                <img src="https://img.icons8.com/ios-filled/64/000000/sneakers.png"> Mens shoes
-                            </div>
-                            <div class="square image">
-                                <img class="ui image" src="/media/gucci.jpeg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui placeholder">
-                            <div class="header">
-                                <div class="very short line">
-                                    <h3>Brand name</h3>
-                                </div>
-                                <div class="medium line">
-                                    <h4>R 600.00 </h4>
-                                </div>
-                            </div>
-                            <div class="paragraph">
-                                <div class="short line">
-                                    <h5>Stock: 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <div class="ui primary button">Buy</div>
-                        <div class="ui button">Remove</div>
-                    </div>
-                </div>
-                <div class="ui card">
-                    <div class="image">
-                        <div class="ui placeholder">
-                            <div class="ui blue ribbon label">
-                                <img src="https://img.icons8.com/ios-filled/64/000000/sneakers.png"> Mens shoes
-                            </div>
-                            <div class="square image">
-                                <img class="ui image" src="/media/puma.jpeg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui placeholder">
-                            <div class="header">
-                                <div class="very short line">
-                                    <h3>Brand name</h3>
-                                </div>
-                                <div class="medium line">
-                                    <h4>R 600.00 </h4>
-                                </div>
-                            </div>
-                            <div class="paragraph">
-                                <div class="short line">
-                                    <h5>Stock: 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <div class="ui primary button">Buy</div>
-                        <div class="ui button">Remove</div>
-                    </div>
-                </div> --}}
-
             </div>
-            {{!-- <img class="ui image" src="/media/vans.jpeg"> --}}
-            {{!-- <img class="ui image" src="/media/puma.jpeg"> --}}
-            {{!-- <img class="ui image" src="/media/gucci.jpeg"> --}}
-            {{!-- <img class="ui image" src="/media/adidas.jpeg"> --}}
+            {{/each}}
         </div>
+    </div>
+
+
+
+    </div>
+    </div>
     </div>
 
 

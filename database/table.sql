@@ -19,5 +19,10 @@ CREATE TABLE shoes_table (
     color_key INTEGER REFERENCES colors_table (id) ON DELETE CASCADE ON UPDATE CASCADE,
     size_key INTEGER REFERENCES size_table (id) ON DELETE CASCADE ON UPDATE CASCADE,
     price DECIMAL(10,2),
+    qty INTEGER,
     img TEXT
 );
+
+CREATE TABLE cart (
+    
+)
