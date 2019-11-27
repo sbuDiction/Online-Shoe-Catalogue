@@ -24,5 +24,6 @@ CREATE TABLE shoes_table (
 );
 
 CREATE TABLE cart (
-    
-)
+    id SERIAL PRIMARY KEY,
+    qty INTEGER
+);
