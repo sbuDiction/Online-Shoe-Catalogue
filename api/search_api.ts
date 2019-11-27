@@ -17,7 +17,6 @@ export default function search_api(engine: any) {
             })
         }
     }
-
     const brand_dropdown = async (req: any, res: any, next: any) => {
 
 
@@ -54,6 +53,7 @@ export default function search_api(engine: any) {
 
     const get_all_shoes = async (req: any, res: any) => {
 
+
         try {
             let stock: any = await engine.search_all();
             res.json({
@@ -67,27 +67,53 @@ export default function search_api(engine: any) {
             })
         }
     }
-
     const by_brand_and_size = async (req: any, res: any) => {
         try {
-            const size: any = req.params.id;
-            const brand: any = req.params.id;
+            const size: any = Number(req.params.size);
+            const brand: any = req.params.brandname;
             let search_results: any = await engine.search(brand, size);
             res.json({
                 status: 'success',
-                data: search_results
+                shoes: search_results
             })
         } catch (error) {
 
         }
     }
+    const by_band = async (req: any, res: any, next: any) => {
+        try {
+            const brand: any = req.params.brandname;
+            let search_results: any = await engine.by_brand(brand)
+            res.json({
+                status: 'success',
+                data: search_results
+            })
 
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    const by_size = async (req: any, res: any, next: any) => {
+        try {
+            const size: number = req.params.size
+            let search_results: any = await engine.by_size(size);
+            res.json({
+                status: 'success',
+                data: search_results
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
     return {
         color_dropdown,
         brand_dropdown,
         size_dropdown,
         all: get_all_shoes,
-        brand_and_size: by_brand_and_size
+        brand_and_size: by_brand_and_size,
+        brand: by_band,
+        size: by_size
 
     }
 }

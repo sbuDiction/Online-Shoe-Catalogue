@@ -18,10 +18,10 @@ export default function routes(engine: any) {
     const search = async (req: any, res: any, next: any) => {
         try {
             const color: string = req.body.color;
-            const brands: string = req.body.brand;
-            const size: number = Number(req.body.size);
+            const brands: string = req.params.brand;
+            const size: number = Number(req.params.size);
 
-            await engine.search(brands, size)
+            await engine.search(brands, size);
             res.redirect('/')
         } catch (error) {
             next(error)

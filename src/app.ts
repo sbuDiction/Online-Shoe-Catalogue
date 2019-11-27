@@ -51,10 +51,12 @@ app.post('/stock', routing.search)
 
 //api routes
 app.get('/api/shoes', api.all)
-app.get('/api/dropdown/color', api.color_dropdown)
-app.get('/api/dropdown/brand', api.brand_dropdown)
-app.get('/api/dropdown/size', api.size_dropdown)
-app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size)
+app.get('/api/dropdown/color', api.color_dropdown);
+app.get('/api/dropdown/brand', api.brand_dropdown);
+app.get('/api/dropdown/size', api.size_dropdown);
+app.get('/api/shoes/brand/:brandname', api.brand)
+app.get('/api/shoes/size/:size', api.size)
+app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size);
 
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`)

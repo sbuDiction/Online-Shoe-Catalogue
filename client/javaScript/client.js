@@ -24,7 +24,11 @@ let search_button = document.querySelector('.searchBtn');
 //values
 let color = document.querySelector('.colorFilter');
 let brand = document.querySelector('.brandFilter');
-let size = document.querySelector('sizeFilter');
+let size = document.querySelector('.sizeFilter');
+
+//data variables
+let Data;
+
 
 const render_color_dropdown = () => {
     axios.get('/api/dropdown/color')
@@ -66,26 +70,52 @@ const render_brand_dropdown = () => {
 }
 
 search_button.addEventListener('click', function () {
-    axios.get('https://shoeapi-webapp.herokuapp.com/api/shoes')
-        .then(function (response) {
-            let results = response.data;
-            let data = results.data;
-            console.log(data);
+    if (brand.value !== 'brandFilter' && size.value !== 'sizeFilter') {
+        axios.get('/api/shoes/brand/' + brand.value + '/size/' + size.value)
+            .then(function (response) {
+                let results = response.data;
+                Data = results.data;
+                Data.forEach(element => {
+                });
+                render_all_results();
+            })
 
-            let display_html = shoes_list_compiled({ results: data });
-            shoes_data.innerHTML = display_html;
-        })
+    } if (color.value === 'colorFilter' && brand.value === 'brandFilter' && size.value === 'sizeFilter') {
+        axios.get('/api/shoes')
+            .then(function (response) {
+                let results = response.data;
+                Data = results.data;
+                render_all_results();
+            })
+    }
+
+    if (brand.value !== 'brandFilter') {
+        axios.get('/api/shoes/brand/' + brand.value)
+            .then(function (response) {
+                let results = response.data;
+                Data = results.data;
+                Data.forEach(element => {
+                });
+                render_all_results();
+            })
+    }
+    if (size.value) {
+        axios('/api/shoes/size/' + size.value)
+            .then(function (response) {
+                let results = response.data;
+                Data = results.data
+                Data.forEach(element => {
+                });
+                render_all_results();
+            })
+    }
+
 })
 
-search_button.addEventListener('click', function () {
-    axios.get('/api/shoes/brand/:brandname/size/:size')
-        .then(function (response) {
-            let results = response.data;
-            let data = results.data;
-
-        })
-})
-
+const render_all_results = () => {
+    let display_html = shoes_list_compiled({ results: Data });
+    shoes_data.innerHTML = display_html;
+}
 
 
 $(document).ready(function () {
@@ -94,14 +124,12 @@ $(document).ready(function () {
             var new_results;
             let results = response.data;
             let content = results.data;
-            console.log(content);
             for (let x = 0; x < content.length; x++) {
                 new_results = content[x].brand;
-                console.log(new_results, 'brand');
             }
             $('.ui.search')
                 .search({
-                    minCharacters: 1,
+                    minCharacters: 3,
                     apiSettings: {
                         url: 'https://api.github.com/search/repositories?q={query}'
                     },
@@ -122,5 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
     render_color_dropdown();
     render_size_dropdown();
     render_brand_dropdown();
+
 })
 

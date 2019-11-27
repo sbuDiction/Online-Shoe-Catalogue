@@ -66,7 +66,7 @@
             <div class="col-sm">
                 <div style="padding-top: 5%;" class="color-filter">
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="color">
+                        <input class="colorFilter" type="hidden" value="colorFilter" name="color">
                         <i class="dropdown icon"></i>
                         <div class="default text">Colors</div>
                         <div class="menu color_template">
@@ -83,7 +83,7 @@
             <div class="col-sm">
                 <div style="padding-top: 5%;" class="size-filter">
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="brand">
+                        <input class="brandFilter" value="brandFilter" type="hidden" name="brand">
                         <i class="dropdown icon"></i>
                         <div class="default text">Brand</div>
                         <div class="menu brandData">
@@ -100,7 +100,7 @@
             <div class="col-sm">
                 <div style="padding-top: 5%;" class="size-filter">
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="size">
+                        <input class="sizeFilter" value="sizeFilter" type="hidden" name="size">
                         <i class="dropdown icon"></i>
                         <div class="default text">Size</div>
                         <div class="menu sizeData">
@@ -137,7 +137,7 @@
                         <div class="image">
                             <div class="ui placeholder">
                                 <div class="square image">
-                                    <img class="ui image" src="{{image1}}">
+                                    <img class="ui image" src="{{image3}}">
                                 </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <button type="submit" class="ui vertical animated green button" tabindex="0">
+                            <button type="submit" class="ui vertical animated orange button" tabindex="0">
                                 <div class="visible content">Add to cart</div>
                                 <div class="hidden content">
                                     <i class="cart icon"></i>
@@ -173,11 +173,6 @@
         </script>
         </div>
     </div>
-
-
-
-    
-
 
 </body>
 <script src="/javaScript/client.js"></script>
