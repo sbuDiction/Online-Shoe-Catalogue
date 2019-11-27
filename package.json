@@ -29,7 +29,6 @@
     "express-handlebars": "^3.1.0",
     "mocha": "^6.2.2",
     "pg": "^7.14.0",
-    "semantic-ui": "^2.4.2",
     "ts-mocha": "^6.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "tsc-watch": "^4.0.0"
