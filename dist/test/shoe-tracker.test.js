@@ -31,23 +31,23 @@ describe("Search all shoes Test", function () {
     });
     it("should be able to show all the shoes in the database when search all is executed ", function () {
         return __awaiter(this, void 0, void 0, function* () {
-            let search_for_shoe = new search_engine_1.default(pool);
-            let all_shoes = yield search_for_shoe.search();
+            let search_for_shoe = search_engine_1.default(pool);
+            let all_shoes = yield search_for_shoe.search_all();
             assert_1.default.equal(all_shoes.length, 4);
         });
     });
     describe("Search by size Test", function () {
         it("should be able to show only shoes that are from the size that was selected if size 7 was selected ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.size(7);
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.by_size(7);
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });
         it("should be able to show only shoes that are from the size that was selected if size 8 was selected ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.size(8);
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.by_size(8);
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });
@@ -55,15 +55,15 @@ describe("Search all shoes Test", function () {
     describe("Search by brand Test", function () {
         it("should be able to show only shoes that are from Vans ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.brand('Vans');
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.by_brand('Vans');
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });
         it("should be able to show only shoes that are from Puma ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.brand('Puma');
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.by_brand('Puma');
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });
@@ -71,15 +71,15 @@ describe("Search all shoes Test", function () {
     describe("Search by brand and size Test", function () {
         it("should be able to show only shoes that are from Vans and size 6 ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.brand_and_size('Vans', 6);
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.search('Vans', 6);
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });
         it("should be able to show only shoes that are from Converse and size 8 ", function () {
             return __awaiter(this, void 0, void 0, function* () {
-                let search_for_shoe = new search_engine_1.default(pool);
-                let all_shoes = yield search_for_shoe.brand_and_size('Converse', 8);
+                let search_for_shoe = search_engine_1.default(pool);
+                let all_shoes = yield search_for_shoe.search('Converse', 8);
                 assert_1.default.equal(all_shoes.length, 1);
             });
         });

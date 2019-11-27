@@ -8,29 +8,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const search_engine_1 = __importDefault(require("../services/search_engine"));
-// import { Pool } from 'pg';
-// const engine = new search(Pool)
-class Routes {
-    constructor(pool) {
-        this.pool;
-    }
-    index(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const engine = new search_engine_1.default(this.pool);
-            try {
-                // console.log(engine.display_brand());
-                res.render('index');
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    }
+function routes(engine) {
+    const index = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            let colors = yield engine.color();
+            const sizes = yield engine.size();
+            const brand = yield engine.brand();
+            const results = yield engine.results();
+            let shoe;
+            results.forEach((element) => {
+                shoe = element;
+            });
+            res.render('index', { brands: brand, colors: colors, size: sizes, results: shoe });
+        }
+        catch (error) {
+            next(error);
+        }
+    });
+    const search = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const color = req.body.color;
+            const brands = req.body.brand;
+            const size = Number(req.body.size);
+            yield engine.search(brands, size);
+            res.redirect('/');
+        }
+        catch (error) {
+            next(error);
+        }
+    });
+    return {
+        index,
+        search
+    };
 }
-exports.default = Routes;
+exports.default = routes;
 //# sourceMappingURL=index.js.map

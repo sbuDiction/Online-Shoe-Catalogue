@@ -7,8 +7,10 @@ const express_1 = __importDefault(require("express"));
 const pg_1 = __importDefault(require("pg"));
 const search_engine_1 = __importDefault(require("../services/search_engine"));
 const index_1 = __importDefault(require("../routes/index"));
+const search_api_1 = __importDefault(require("../api/search_api"));
 const express_handlebars_1 = __importDefault(require("express-handlebars"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const axios = require('axios').default;
 const app = express_1.default();
 const handlebarSetup = express_handlebars_1.default({
     partialsDir: "./views/partials",
@@ -30,11 +32,19 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
-const engine = new search_engine_1.default(pool);
-const routing = new index_1.default(engine);
+const engine = search_engine_1.default(pool);
+const routing = index_1.default(engine);
+const api = search_api_1.default(engine);
 app.use(express_1.default.static('client'));
 const PORT = process.env.PORT || 3000;
 app.get('/', routing.index);
+app.post('/stock', routing.search);
+//api routes
+app.get('/api/shoes', api.all);
+app.get('/api/dropdown/color', api.color_dropdown);
+app.get('/api/dropdown/brand', api.brand_dropdown);
+app.get('/api/dropdown/size', api.size_dropdown);
+app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size);
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`);
 });

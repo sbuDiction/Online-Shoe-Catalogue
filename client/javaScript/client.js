@@ -19,8 +19,12 @@ let brand_template_data = document.querySelector('.brandData');
 let template_fourth = document.querySelector('.shoesTemplate').innerHTML;
 let shoes_list_compiled = Handlebars.compile(template_fourth);
 let shoes_data = document.querySelector('.shoeData');
-let search_button = document.querySelector('.searchBtn')
+let search_button = document.querySelector('.searchBtn');
 
+//values
+let color = document.querySelector('.colorFilter');
+let brand = document.querySelector('.brandFilter');
+let size = document.querySelector('sizeFilter');
 
 const render_color_dropdown = () => {
     axios.get('/api/dropdown/color')
@@ -70,6 +74,15 @@ search_button.addEventListener('click', function () {
 
             let display_html = shoes_list_compiled({ results: data });
             shoes_data.innerHTML = display_html;
+        })
+})
+
+search_button.addEventListener('click', function () {
+    axios.get('/api/shoes/brand/:brandname/size/:size')
+        .then(function (response) {
+            let results = response.data;
+            let data = results.data;
+
         })
 })
 
