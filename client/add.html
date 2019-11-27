@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<script>
+$(document).ready(function () {
+    $('.ui.dropdown').dropdown();
+
+    setTimeout(function () {
+        $('#dimm').hide('hide');
+    }, 2000)
+
+    $(document).ready(function(){
+        $('.ui.accordion').accordion();
+     });
+});
+</script>
+
+<script>
+        // $(function () {
+        //     setTimeout(function () {
+        //         $('#dimmer').show()
+        //     }, 2000);
+        // });
+</script>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>Brand name</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    <div class="field">
+                        <label>Color</label>
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="field">
+                        <label>Size</label>
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>Qty</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    <div class="field">
+                        <label>Price</label>
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui floating labeled icon dropdown button">
+            <i class="add user icon"></i>
+            <span class="text">Add User</span>
+            <div class="menu">
+                <div class="header">
+                    People You Might Know
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
+                    Jenny Hess
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
+                    Elliot Fu
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
+                    Stevie Feliciano
+                </div>
+                <div class="header">
+                    Your Friends' Friends
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/christian.jpg">
+                    Christian
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg">
+                    Matt
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="/images/avatar/small/justen.jpg">
+                    Justen Kitsune
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- <script src="/javaScript/client.js"></script> -->
+
+</html>

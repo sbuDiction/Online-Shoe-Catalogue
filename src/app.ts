@@ -40,14 +40,8 @@ const engine = Seearch_engine(pool);
 const routing = Routes(engine);
 const api = search_api(engine)
 
-
 app.use(express.static('client'))
-
 const PORT = process.env.PORT || 3000;
-
-
-app.get('/', routing.index)
-app.post('/stock', routing.search)
 
 //api routes
 app.get('/api/shoes', api.all)

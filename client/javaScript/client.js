@@ -88,7 +88,6 @@ search_button.addEventListener('click', function () {
                 render_all_results();
             })
     }
-
     if (brand.value !== 'brandFilter') {
         axios.get('/api/shoes/brand/' + brand.value)
             .then(function (response) {
@@ -141,15 +140,25 @@ $(document).ready(function () {
 });
 
 
-
+//jquery
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
+
+    setTimeout(function () {
+        $('#dimm').hide('hide');
+    }, 1000)
+
+    $(document).ready(function(){
+        $('.ui.accordion').accordion();
+     });
 });
+//
+
 
 document.addEventListener('DOMContentLoaded', function () {
     render_color_dropdown();
     render_size_dropdown();
     render_brand_dropdown();
-
+    // $('#dimmer').dimmer('show'); 
 })
 
