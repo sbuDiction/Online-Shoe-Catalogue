@@ -71,7 +71,7 @@ export default function search_engine(pool: any) {
         let brand_id: number;
         let color_id: number;
         let size_id: number;
-        const image = 'No image';
+        const image = 'placeholder.jpg';
 
         for (let x = 0; x < items.length; x++) {
             const element = items[x];
