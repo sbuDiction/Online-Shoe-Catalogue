@@ -106,6 +106,34 @@ export default function search_api(engine: any) {
             next(error)
         }
     }
+
+    const add = async (req: any, res: any, next: any) => {
+        try {
+
+            let data: any = req.body;
+
+            await engine.extract(data);
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    const add_to_cart = async (req: any, res: any, next: any) => {
+        try {
+            const shoe_id: number = req.params.id
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    const buy = (req: any, res: any, next: any) => {
+        try {
+            const sold: number = req.params.id;
+        } catch (error) {
+            next(error)
+        }
+    }
     return {
         color_dropdown,
         brand_dropdown,
@@ -113,7 +141,10 @@ export default function search_api(engine: any) {
         all: get_all_shoes,
         brand_and_size: by_brand_and_size,
         brand: by_band,
-        size: by_size
+        size: by_size,
+        update: add,
+        cart: add_to_cart,
+        checkout: buy
 
     }
 }

@@ -56,11 +56,72 @@
                     <div class="results"></div>
                 </div>
             </div>
-
             <div class="col">
                 <h1 style="color:rgb(248, 248, 248)" class="heading">Online shoe catalogue</h1>
             </div>
+
+        
+
+            <div class="col">
+                <div style="padding-right: 20%;" class="justify-content-center">
+                    <div class="ui left pointing dropdown blue icon button">
+                        <i class="settings red icon"></i>
+                        <div class="menu">
+                            <div class="ui right labeled left icon input">
+                                <i class="tags icon"></i>
+                                <input class="brandInput" type="text" placeholder="Enter brand">
+                                <a class="ui tag blue label">
+                                    Brand
+                                </a>
+                            </div>
+                            <div class="ui right labeled left icon input">
+                                <i class="tags icon"></i>
+                                <input class="colorInput" type="text" placeholder="Enter color">
+                                <a class="ui tag blue label">
+                                    Color
+                                </a>
+                            </div>
+                            <div class="ui right labeled left icon input">
+                                <i class="tags icon"></i>
+                                <input type="text" class="sizeInput" placeholder="Enter size">
+                                <a class="ui tag blue label">
+                                    Size
+                                </a>
+                            </div>
+                            <div class="ui right labeled left icon input">
+                                <i class="tags icon"></i>
+                                <input type="text" class="priceInput" placeholder="Enter price">
+                                <a class="ui tag blue label">
+                                    Price
+                                </a>
+                            </div>
+                            <div class="ui right labeled left icon input">
+                                <i class="tags icon"></i>
+                                <input type="text" class="qtyInput" placeholder="Stock">
+                                <a class="ui tag blue label">
+                                    Qty
+                                </a>
+                            </div>
+                            <div class="header">
+                                <i class="tags icon"></i>
+                                Add shoe
+                            </div>
+                            <div class="item">
+                                <button class="ui vertical animated blue button addBtn" tabindex="0">
+                                    <div class="visible content">Add shoe</div>
+                                    <div class="hidden content">
+                                        <i class="cart icon"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="w-100"></div>
+
         </div>
 
         <div class="row">
@@ -73,7 +134,7 @@
                         <div class="menu color_template">
                             <script type="text/x-template" class="template_color">
                                 {{#each color}}
-                                <div class="item" data-value="{{colour}}">{{colour}}</div>
+                                <div class="item" data-value="{{colour}}">{{color}}</div>
                                 {{/each}}
                                  </script>
                         </div>
@@ -116,8 +177,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+            <div class="col">
                 <div style="padding-top: 3%;" class="justify-content-center">
                     <button type="submit" class="ui vertical animated button searchBtn" tabindex="0">
                         <div class="hidden content">Search</div>
@@ -126,49 +187,13 @@
                         </div>
                     </button>
                 </div>
+
             </div>
+
+            <div class="col"></div>
+            <div class="col"></div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="ui left pointing dropdown blue icon button">
-                    <i class="settings red icon"></i>
-                    <div class="menu">
-                        <div class="ui left search icon input">
-                            <i class="search icon"></i>
-                            <input type="text" name="search" placeholder="Search issues...">
-                        </div>
-                        <div class="ui left search icon input">
-                            <i class="search icon"></i>
-                            <input type="text" name="search" placeholder="Search issues...">
-                        </div>
-                        <div class="ui left search icon input">
-                            <i class="search icon"></i>
-                            <input type="text" name="search" placeholder="Search issues...">
-                        </div>
-                        <div class="ui left search icon input">
-                            <i class="search icon"></i>
-                            <input type="text" name="search" placeholder="Search issues...">
-                        </div>
-                        <div class="ui left search icon input">
-                            <i class="search icon"></i>
-                            <input type="text" name="search" placeholder="Search issues...">
-                        </div>
-                        <div class="header">
-                            <i class="tags icon"></i>
-                            Add shoe
-                        </div>
-                        <div class="item">
-                            <button type="submit" class="ui vertical animated blue button" tabindex="0">
-                                <div class="visible content">Add shoe</div>
-                                <div class="hidden content">
-                                    <i class="cart icon"></i>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row shoeData">
             <script type="text/x-template" class="shoesTemplate">
@@ -179,7 +204,7 @@
                         <div class="image">
                             <div class="ui placeholder">
                                 <div class="square image">
-                                    <img class="ui image" src="{{image3}}">
+                                    <img class="ui image" src="/media/{{img}}">
                                 </div>
                             </div>
                         </div>
@@ -195,7 +220,7 @@
                                 </div>
                                 <div class="paragraph">
                                     <div class="short line">
-                                        <h5>Stock: {{stock}}</h5>
+                                        <h5>Stock: {{qty}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -213,17 +238,11 @@
             </div>
             {{/each}}
         </script>
-        </div class="row">
-    </div>
-    <div class="ui page dimmer">
-        <div class="content">
-            Hello
         </div>
     </div>
     <div id="dimm" class="ui active dimmer">
-        <div class="ui big text loader">Please wait</div>
+        <div class="ui big text loader">Setting up please wait..</div>
     </div>
-    </div class="col-12">
     </div>
 
 </body>

@@ -14,6 +14,8 @@
     "watch-node": "nodemon dist/src/app.js",
     "watch-ts": "tsc -w",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "git": "git add . npm run commit",
+    "commit": "git commit -m 'just a commit'",
     "test": "ts-mocha test/*.ts"
   },
   "engines": {

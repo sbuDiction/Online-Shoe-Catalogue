@@ -1,8 +1,7 @@
 import express from 'express';
 import pg from 'pg';
 import Seearch_engine from '../services/search_engine';
-import Routes from '../routes/index';
-import search_api from '../api/search_api'
+import search_api from '../api/shoes_api'
 import handlebars from 'express-handlebars';
 import bodyParser from 'body-parser';
 const axios = require('axios').default;
@@ -37,7 +36,6 @@ const pool = new Pool({
 });
 
 const engine = Seearch_engine(pool);
-const routing = Routes(engine);
 const api = search_api(engine)
 
 app.use(express.static('client'))
@@ -51,6 +49,9 @@ app.get('/api/dropdown/size', api.size_dropdown);
 app.get('/api/shoes/brand/:brandname', api.brand)
 app.get('/api/shoes/size/:size', api.size)
 app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size);
+app.post('/api/shoes/cart/:id', api.cart)
+// app.post('/api/shoes/', api.update)
+app.post('/api/add/shoe/', api.update);
 
 app.listen(PORT, function () {
     console.log(`server is listening on ${PORT}`)

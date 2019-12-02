@@ -29,12 +29,24 @@ let size = document.querySelector('.sizeFilter');
 //data variables
 let Data;
 
+//add shoe
+let add_shoe = document.querySelector('.addBtn');
+let brand_input = document.querySelector('.brandInput');
+let color_input = document.querySelector('.colorInput');
+let size_input = document.querySelector('.sizeInput');
+let price_input = document.querySelector('.priceInput')
+let qty_input = document.querySelector('.qtyInput');
+
+
+
 
 const render_color_dropdown = () => {
     axios.get('/api/dropdown/color')
         .then(function (response) {
             let results = response.data;
             let data = results.data;
+            console.log(data);
+
             let display_html = color_compiled_template({ color: data });
             color_template_data.innerHTML = display_html;
         })
@@ -68,6 +80,7 @@ const render_brand_dropdown = () => {
             console.log('We have an arror in the brand dropdown api');
         })
 }
+//https://shoeapi-webapp.herokuapp.com/api/shoes
 
 search_button.addEventListener('click', function () {
     if (brand.value !== 'brandFilter' && size.value !== 'sizeFilter') {
@@ -85,6 +98,8 @@ search_button.addEventListener('click', function () {
             .then(function (response) {
                 let results = response.data;
                 Data = results.data;
+                console.log(Data);
+                
                 render_all_results();
             })
     }
@@ -111,6 +126,32 @@ search_button.addEventListener('click', function () {
 
 })
 
+
+
+async function make_post_request() {
+    let brand = brand_input.value;
+    let color = color_input.value;
+    let size = Number(size_input.value);
+    let price = Number(price_input.value);
+    let qty = Number(qty_input.value);
+    // console.log(price);
+
+    let params = {
+        brand: brand,
+        color: color,
+        size: size,
+        price: price,
+        qty: qty
+    }
+
+
+    await axios.post('/api/add/shoe/', params)
+}
+
+add_shoe.addEventListener('click', function () {
+    make_post_request();
+})
+
 const render_all_results = () => {
     let display_html = shoes_list_compiled({ results: Data });
     shoes_data.innerHTML = display_html;
@@ -130,14 +171,18 @@ $(document).ready(function () {
                 .search({
                     minCharacters: 3,
                     apiSettings: {
-                        url: 'https://api.github.com/search/repositories?q={query}'
+                        url: 'https://api.github.com/users'
                     },
                     type: 'standard',
                     source: new_results,
                     searchFields: ['brand'],
                 });
+            // console.log();
+
+
         })
 });
+
 
 
 //jquery
@@ -145,20 +190,19 @@ $(document).ready(function () {
     $('.ui.dropdown').dropdown();
 
     setTimeout(function () {
-        $('#dimm').hide('hide');
+        $('#dimm').hide();
     }, 1000)
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.ui.accordion').accordion();
-     });
+    });
 });
 //
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    render_color_dropdown();
     render_size_dropdown();
     render_brand_dropdown();
-    // $('#dimmer').dimmer('show'); 
+    render_color_dropdown();
 })
 
