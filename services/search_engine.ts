@@ -1,11 +1,7 @@
 export default function search_engine(pool: any) {
     let cart = [];
-    let brand_ref: number;
-    let color_ref: number;
-    let size_ref: number;
 
-
-    const brand_and_size = async (brand: string, size: number): Promise<any> => {
+    const brand_and_size = async (brand: string, size: number) => {
         const brand_and_size: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key WHERE brand = '${brand}' AND size = '${size}'`);
         return brand_and_size.rows
     }
@@ -13,27 +9,27 @@ export default function search_engine(pool: any) {
         const stock: any = await pool.query(`SELECT * FROM shoes`);
         return stock.rows
     }
-    const display_color = async (): Promise<any> => {
+    const display_color = async () => {
         const stock: any = await pool.query(`SELECT * FROM color`);
         return stock.rows
     }
-    const display_size = async (): Promise<any> => {
+    const display_size = async () => {
         const stock: any = await pool.query(`SELECT * FROM size`);
         return stock.rows
     }
-    const display_brand = async (): Promise<any> => {
+    const display_brand = async () => {
         const stock: any = await pool.query(`SELECT * FROM brand`);
         return stock.rows
     }
-    const search = async (): Promise<any> => {
+    const search = async () => {
         const grab_all: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key`);
         return grab_all.rows;
     }
-    const size = async (size: number): Promise<any> => {
+    const size = async (size: number) => {
         const shoe_size: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key WHERE size = '${size}'`);
         return shoe_size.rows;
     }
-    const brand = async (brand: string): Promise<any> => {
+    const brand = async (brand: string) => {
         const brand_name: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key WHERE brand = '${brand}'`);
         return brand_name.rows;
     }
@@ -41,7 +37,6 @@ export default function search_engine(pool: any) {
     //add shoe
     const add_brand = async (brand: any) => {
         const retrive_brand: any = await pool.query(`SELECT * FROM brand WHERE brand = '${brand}';`)
-        // brand_ref = retrive_brand.rows[0].id
         if (retrive_brand.rowCount > 0) {
             return true;
         }
@@ -50,8 +45,6 @@ export default function search_engine(pool: any) {
 
     const add_color = async (color: any) => {
         const retrive_color: any = await pool.query(`SELECT * FROM color WHERE color = '${color}';`)
-        // color_ref = retrive_color.rows[0].id
-
         if (retrive_color.rows.length !== 0) {
             return true;
         }
@@ -60,7 +53,6 @@ export default function search_engine(pool: any) {
 
     const add_size = async (size: any) => {
         const retrive_size: any = await pool.query(`SELECT * FROM size WHERE size = '${size}';`)
-        // size_ref = retrive_size.rows[0].id
         if (retrive_size.rowCount > 0) {
             return true;
         }
@@ -71,7 +63,7 @@ export default function search_engine(pool: any) {
 
 
     //add to shopping cart
-    const add_to_cart = async (shoe_id: number) => { }
+    // const add_to_cart = async (shoe_id: number) => { }
 
     const extract_data = async (data: any) => {
         const items: any = Object.values(data);
@@ -117,7 +109,7 @@ export default function search_engine(pool: any) {
         add_colors: add_color,
         add_sizes: add_size,
         // build: build_shoe,
-        cart: add_to_cart,
+        // cart: add_to_cart,
         extract: extract_data
     }
 }

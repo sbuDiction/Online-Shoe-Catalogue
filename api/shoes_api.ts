@@ -111,7 +111,6 @@ export default function search_api(engine: any) {
         try {
 
             let data: any = req.body;
-
             await engine.extract(data);
 
         } catch (error) {
