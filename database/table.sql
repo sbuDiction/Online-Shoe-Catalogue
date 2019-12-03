@@ -14,4 +14,8 @@ CREATE TABLE shoes (
     img TEXT
 );
 
-CREATE TABLE cart (id SERIAL PRIMARY KEY, qty INTEGER);
+CREATE TABLE cart (
+    id SERIAL PRIMARY KEY,
+    qty INTEGER,
+    shoe_id INTEGER REFERENCES shoes(id)
+);

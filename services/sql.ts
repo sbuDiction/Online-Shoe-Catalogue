@@ -44,6 +44,10 @@ export default function sql(pool: any) {
         const stock: any = await pool.query(`SELECT * FROM brand`);
         return stock.rows
     }
+    const get_me_a_shoe = async (shoe_id: number) => {
+        let shoe: any = await pool.query(`SELECT * FROM shoes WHERE id = $1`, [shoe_id]);
+        return shoe.rows[0].id
+    }
     return {
         get_by_brand,
         get_by_color,
@@ -53,6 +57,7 @@ export default function sql(pool: any) {
         add_size,
         display_brand,
         display_color,
-        display_size
+        display_size,
+        search_shoes: get_me_a_shoe
     }
 }

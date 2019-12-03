@@ -113,7 +113,8 @@ export default function search_api(engine: any, sql: any) {
 
     const add_to_cart = async (req: any, res: any, next: any) => {
         try {
-            const shoe_id: number = req.params.id
+            const shoe_id: any = req.body;
+            await engine.cart(shoe_id)
         } catch (error) {
             next(error)
         }

@@ -51,7 +51,7 @@ app.get('/api/dropdown/size', api.size_dropdown);
 app.get('/api/shoes/brand/:brandname', api.brand)
 app.get('/api/shoes/size/:size', api.size)
 app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size);
-app.post('/api/shoes/cart/:id', api.cart)
+app.post('/api/shoes/cart', api.cart)
 // app.post('/api/shoes/', api.update)
 app.post('/api/add/shoe/', api.update);
 
