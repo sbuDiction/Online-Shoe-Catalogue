@@ -2,6 +2,7 @@ import express from 'express';
 import pg from 'pg';
 import Seearch_engine from '../services/search_engine';
 import search_api from '../api/shoes_api'
+import Sql from '../services/sql'
 import handlebars from 'express-handlebars';
 import bodyParser from 'body-parser';
 const axios = require('axios').default;
@@ -36,7 +37,8 @@ const pool = new Pool({
 });
 
 const engine = Seearch_engine(pool);
-const api = search_api(engine)
+const sql = Sql(pool)
+const api = search_api(engine,sql)
 
 app.use(express.static('client'))
 const PORT = process.env.PORT || 3000;

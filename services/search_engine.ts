@@ -7,22 +7,6 @@ export default function search_engine(pool: any) {
         const brand_and_size: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key WHERE brand = '${brand}' AND size = '${size}'`);
         return brand_and_size.rows
     }
-    const display_shoes = async () => {
-        const stock: any = await pool.query(`SELECT * FROM shoes`);
-        return stock.rows
-    }
-    const display_color = async () => {
-        const stock: any = await pool.query(`SELECT * FROM color`);
-        return stock.rows
-    }
-    const display_size = async () => {
-        const stock: any = await pool.query(`SELECT * FROM size`);
-        return stock.rows
-    }
-    const display_brand = async () => {
-        const stock: any = await pool.query(`SELECT * FROM brand`);
-        return stock.rows
-    }
     const search = async () => {
         const grab_all: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key`);
         return grab_all.rows;
@@ -36,39 +20,14 @@ export default function search_engine(pool: any) {
         return brand_name.rows;
     }
 
-    //add shoe
-    const add_brand = async (brand: any) => {
-        const retrive_brand: any = await pool.query(`SELECT * FROM brand WHERE brand = '${brand}';`)
-        if (retrive_brand.rowCount > 0) {
-            return true;
-        }
-        await pool.query(`INSERT INTO brand (brand) VALUES ('${brand}')`)
-    }
-
-    const add_color = async (color: any) => {
-        const retrive_color: any = await pool.query(`SELECT * FROM color WHERE color = '${color}';`)
-        if (retrive_color.rows.length !== 0) {
-            return true;
-        }
-        await pool.query(`INSERT INTO color (color) VALUES ('${color}');`);
-    }
-
-    const add_size = async (size: any) => {
-        const retrive_size: any = await pool.query(`SELECT * FROM size WHERE size = '${size}';`)
-        if (retrive_size.rowCount > 0) {
-            return true;
-        }
-        await pool.query(`INSERT INTO size (size) VALUES ('${size}')`);
-    }
-
     //add to shopping cart
-    // const add_to_cart = async (shoe_id: number) => { }
+    const add_to_cart = async (shoe_id: number) => { }
 
     const extract_data = async (data: any) => {
         const items: any = (data);
-        await add_brand(items.brand)
-        await add_color(items.color)
-        await add_size(items.size)
+        await Sql.add_brand(items.brand)
+        await Sql.add_color(items.color)
+        await Sql.add_size(items.size)
 
         let brand_id: number = await Sql.get_by_brand(items.brand)
         let color_id: number = await Sql.get_by_color(items.color)
@@ -89,18 +48,10 @@ export default function search_engine(pool: any) {
 
     return {
         search: brand_and_size,
-        results: display_shoes,
-        color: display_color,
-        size: display_size,
-        brand: display_brand,
         search_all: search,
         by_size: size,
         by_brand: brand,
-        add_brands: add_brand,
-        add_colors: add_color,
-        add_sizes: add_size,
-        // build: build_shoe,
-        // cart: add_to_cart,
+        cart: add_to_cart,
         extract: extract_data
     }
 }

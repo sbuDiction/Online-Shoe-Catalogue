@@ -1,8 +1,8 @@
-export default function search_api(engine: any) {
+export default function search_api(engine: any, sql: any) {
 
     const color_dropdown = async (req: any, res: any, next: any) => {
         try {
-            let color = await engine.color();
+            let color = await sql.display_color();
             res.json({
                 status: 'success',
                 data: color
@@ -16,7 +16,7 @@ export default function search_api(engine: any) {
     }
     const brand_dropdown = async (req: any, res: any, next: any) => {
         try {
-            let brand = await engine.brand();
+            let brand = await sql.display_brand();
             res.json({
                 status: 'success',
                 data: brand
@@ -31,7 +31,7 @@ export default function search_api(engine: any) {
 
     const size_dropdown = async (req: any, res: any, next: any) => {
         try {
-            let size = await engine.size();
+            let size = await sql.display_size();
             res.json({
                 status: 'success',
                 data: size
