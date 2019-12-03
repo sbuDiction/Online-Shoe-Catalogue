@@ -1,5 +1,7 @@
+import sql from './sql';
 export default function search_engine(pool: any) {
     let cart = [];
+    let Sql = sql(pool)
 
     const brand_and_size = async (brand: string, size: number) => {
         const brand_and_size: any = await pool.query(`SELECT brand.brand,color.color,size.size,shoes.price,shoes.img,shoes.qty FROM brand INNER JOIN shoes ON brand.id = shoes.brand_key INNER JOIN color ON color.id = shoes.color_key INNER JOIN size ON size.id = shoes.size_key WHERE brand = '${brand}' AND size = '${size}'`);
@@ -59,39 +61,28 @@ export default function search_engine(pool: any) {
         await pool.query(`INSERT INTO size (size) VALUES ('${size}')`);
     }
 
-
-
-
     //add to shopping cart
     // const add_to_cart = async (shoe_id: number) => { }
 
     const extract_data = async (data: any) => {
-        const items: any = Object.values(data);
-        console.log(items);
-        let brand_id: number;
-        let color_id: number;
-        let size_id: number;
+        const items: any = (data);
+        await add_brand(items.brand)
+        await add_color(items.color)
+        await add_size(items.size)
+
+        let brand_id: number = await Sql.get_by_brand(items.brand)
+        let color_id: number = await Sql.get_by_color(items.color)
+        let size_id: number = await Sql.get_by_size(items.size)
         const image = 'placeholder.jpg';
 
-        for (let x = 0; x < items.length; x++) {
-            const element = items[x];
-        }
-        await add_brand([items[0]])
-        await add_color([items[1]])
-        await add_size([items[2]])
-        let select_brand = await pool.query(`SELECT * FROM brand WHERE brand = $1`, [items[0]])
-        let select_color = await pool.query(`SELECT * FROM color WHERE color = $1`, [items[1]])
-        let select_size = await pool.query(`SELECT * FROM size WHERE size = $1`, [items[2]])
-        brand_id = select_brand.rows[0].id
-        color_id = select_color.rows[0].id
-        size_id = select_size.rows[0].id
-        let check_for_shoe = await pool.query(`SELECT * FROM shoes WHERE brand_key = $1 AND color_key = $2 AND size_key = $3`, [select_brand.rows[0].id, select_color.rows[0].id, select_size.rows[0].id])
-        console.log(check_for_shoe.rows);
+        let check_for_shoe = await pool.query(`SELECT * FROM shoes WHERE brand_key = $1 AND color_key = $2 AND size_key = $3`, [brand_id, color_id, size_id])
         if (check_for_shoe.rowCount === 1) {
-            check_for_shoe.rows[0].id
-            await pool.query(`UPDATE shoes SET price = $1 AND price = $2 WHERE id = $3`, [items[3], items[4] + 1, check_for_shoe.rows[0].id])
+            let id: number = check_for_shoe.rows[0].id
+            let qty: number = check_for_shoe.rows[0].qty
+            await pool.query(`UPDATE shoes SET qty = $1, price = $2 WHERE id = $3`, [items.qty + qty, items.price, id])
+        } else {
+            await pool.query(`INSERT INTO shoes (brand_key, color_key, size_key, price,qty, img) VALUES ($1, $2, $3, $4, $5, $6)`, [brand_id, color_id, size_id, items.price, items.qty, image])
         }
-        await pool.query(`INSERT INTO shoes (brand_key, color_key, size_key, price,qty, img) VALUES ($1, $2, $3, $4, $5, $6)`, [brand_id, color_id, size_id, items[3], items[4], image])
 
     }
 

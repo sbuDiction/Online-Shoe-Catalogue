@@ -1,9 +1,6 @@
 export default function search_api(engine: any) {
 
-
     const color_dropdown = async (req: any, res: any, next: any) => {
-
-
         try {
             let color = await engine.color();
             res.json({
@@ -18,8 +15,6 @@ export default function search_api(engine: any) {
         }
     }
     const brand_dropdown = async (req: any, res: any, next: any) => {
-
-
         try {
             let brand = await engine.brand();
             res.json({
@@ -35,8 +30,6 @@ export default function search_api(engine: any) {
     }
 
     const size_dropdown = async (req: any, res: any, next: any) => {
-
-
         try {
             let size = await engine.size();
             res.json({
@@ -52,8 +45,6 @@ export default function search_api(engine: any) {
     }
 
     const get_all_shoes = async (req: any, res: any) => {
-
-
         try {
             let stock: any = await engine.search_all();
             res.json({
@@ -67,6 +58,7 @@ export default function search_api(engine: any) {
             })
         }
     }
+
     const by_brand_and_size = async (req: any, res: any) => {
         try {
             const size: any = Number(req.params.size);
@@ -80,6 +72,7 @@ export default function search_api(engine: any) {
 
         }
     }
+
     const by_band = async (req: any, res: any, next: any) => {
         try {
             const brand: any = req.params.brandname;
@@ -133,6 +126,7 @@ export default function search_api(engine: any) {
             next(error)
         }
     }
+
     return {
         color_dropdown,
         brand_dropdown,
@@ -144,6 +138,5 @@ export default function search_api(engine: any) {
         update: add,
         cart: add_to_cart,
         checkout: buy
-
     }
 }
