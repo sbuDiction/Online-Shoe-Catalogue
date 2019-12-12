@@ -16,6 +16,6 @@ CREATE TABLE shoes (
 
 CREATE TABLE cart (
     id SERIAL PRIMARY KEY,
-    qty INTEGER,
-    shoe_id INTEGER REFERENCES shoes(id)
+    shoe_id INTEGER REFERENCES shoes(id) on delete cascade on update cascade,
+    qty INTEGER
 );

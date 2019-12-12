@@ -38,7 +38,7 @@ const pool = new Pool({
 
 const engine = Seearch_engine(pool);
 const sql = Sql(pool)
-const api = search_api(engine,sql)
+const api = search_api(engine, sql)
 
 app.use(express.static('client'))
 const PORT = process.env.PORT || 3000;
@@ -50,6 +50,7 @@ app.get('/api/dropdown/brand', api.brand_dropdown);
 app.get('/api/dropdown/size', api.size_dropdown);
 app.get('/api/shoes/brand/:brandname', api.brand)
 app.get('/api/shoes/size/:size', api.size)
+app.get('/api/shoes/count', api.count)
 app.get('/api/shoes/brand/:brandname/size/:size', api.brand_and_size);
 app.post('/api/shoes/cart', api.cart)
 // app.post('/api/shoes/', api.update)

@@ -44,11 +44,21 @@ export default function search_engine(pool: any) {
 
     const add_to_cart = async (shoe_id: any) => {
         console.log(shoe_id);
-        let get_shoe: any = await pool.query(`SELECT * FROM shoes WHERE id = ${shoe_id.id}`)
-        console.log(get_shoe.rows);
-        if (get_shoe.rowCount === 1) { 
-            await pool.query(``)
+        // let get_shoe: any = await pool.query(`SELECT * FROM shoes WHERE id = ${shoe_id.id}`)
+        // let qty: any = get_shoe.rows[0].qty
+        let check_stock = await pool.query(`SELECT * FROM cart WHERE shoe_id = $1`, [shoe_id.id])
+        if (check_stock.rows.length !== 0) {
+            let cart_qty = check_stock.rows[0].qty
+            await pool.query(`UPDATE cart SET qty = $1 WHERE shoe_id = $2`, [cart_qty + 1, shoe_id.id])
+        } else {
+
+            await pool.query(`INSERT INTO cart (shoe_id,qty) VALUES ($1,$2)`, [shoe_id.id, 1])
         }
+    }
+
+    const display_counter = async () => {
+        let count: any = await pool.query(`SELECT COUNT(*) FROM cart`);
+        return count.rows[0].count
     }
 
     return {
@@ -57,6 +67,7 @@ export default function search_engine(pool: any) {
         by_size: size,
         by_brand: brand,
         cart: add_to_cart,
-        extract: extract_data
+        extract: extract_data,
+        count: display_counter
     }
 }

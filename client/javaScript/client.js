@@ -80,6 +80,16 @@ const render_brand_dropdown = () => {
             console.log('We have an arror in the brand dropdown api');
         })
 }
+
+const render_cart_count = () => {
+    axios.get('/api/shoes/count')
+        .then(function (response) {
+            let results = response.data;
+            
+            console.log(results);
+
+        })
+}
 //https://shoeapi-webapp.herokuapp.com/api/shoes
 
 search_button.addEventListener('click', function () {
@@ -217,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     render_size_dropdown();
     render_brand_dropdown();
     render_color_dropdown();
+    render_cart_count()
 })
 
 

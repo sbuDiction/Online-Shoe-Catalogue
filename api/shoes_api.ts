@@ -128,6 +128,18 @@ export default function search_api(engine: any, sql: any) {
         }
     }
 
+    const count = async (req: any, res: any, next: any) => {
+        try {
+            let counter: any = await engine.count()
+            res.json({
+                status: 'success',
+                data: counter
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
     return {
         color_dropdown,
         brand_dropdown,
@@ -138,6 +150,7 @@ export default function search_api(engine: any, sql: any) {
         size: by_size,
         update: add,
         cart: add_to_cart,
-        checkout: buy
+        checkout: buy,
+        count
     }
 }
