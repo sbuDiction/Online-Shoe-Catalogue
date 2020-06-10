@@ -43,7 +43,7 @@ export default function search_engine(pool: any) {
     }
 
     const add_to_cart = async (shoe_id: any) => {
-        console.log(shoe_id);
+        console.log(shoe_id,"inside function");
         // let get_shoe: any = await pool.query(`SELECT * FROM shoes WHERE id = ${shoe_id.id}`)
         // let qty: any = get_shoe.rows[0].qty
         let check_stock = await pool.query(`SELECT * FROM cart WHERE shoe_id = $1`, [shoe_id.id])

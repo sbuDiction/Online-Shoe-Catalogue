@@ -183,6 +183,10 @@ const render_all_results = () => {
     });
 }
 
+const show_cart = () => {
+    
+}
+
 //jquery
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
@@ -204,12 +208,14 @@ $(document).ready(function () {
             let content = results.data;
             for (let x = 0; x < content.length; x++) {
                 new_results = content[x].brand;
+                console.log(new_results);
+                
             }
             $('.ui.search')
                 .search({
-                    minCharacters: 3,
+                    minCharacters: 2,
                     apiSettings: {
-                        url: 'https://api.github.com/users'
+                        url: 'https://api.github.com'
                     },
                     type: 'standard',
                     source: new_results,

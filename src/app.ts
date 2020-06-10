@@ -29,7 +29,7 @@ if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
 
-const connectionString = process.env.DATABASE_URL || "postgresql://diction:19970823@localhost:5432/shoe_catalogue";
+const connectionString = process.env.DATABASE_URL || "postgresql://codex:codex123@localhost:5432/shoe_catalogue";
 
 const pool = new Pool({
     connectionString,
@@ -41,7 +41,7 @@ const sql = Sql(pool)
 const api = search_api(engine, sql)
 
 app.use(express.static('client'))
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 //api routes
 app.get('/api/shoes', api.all)
