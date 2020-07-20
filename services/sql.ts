@@ -1,75 +1,86 @@
-export default function sql(pool: any) {
+class SqlQueries {
+    pool: any;
 
-    const get_by_brand = async (brand: string) => {
-        let brands: any = await pool.query(`SELECT * FROM brand WHERE brand = $1`, [brand]);
+    // sql queries for usage later on in the project.
+    SELECTFROMBRAND = `SELECT * FROM brand WHERE brand = $1`;
+    SELECTFROMCOLOR = `SELECT * FROM color WHERE color = $1`;
+    SELECTFROMSIZE = `SELECT * FROM size WHERE size = $1`;
+    INSERTBRAND = `INSERT INTO brand (brand) VALUES ($1)`;
+    INSERTCOLOR = `INSERT INTO color (color) VALUES ($1)`;
+    INSERTSIZE = `INSERT INTO size (size) VALUES ($1)`;
+    LISTCOLORS = `SELECT * FROM color`;
+    LISTSIZE = `SELECT * FROM size`;
+    LISTBRAND = `SELECT * FROM brand`;
+    GETSHOEID = `SELECT * FROM shoes WHERE id = $1`;
+
+
+    constructor(pool: any) {
+        this.pool = pool;
+    }
+
+    async get_by_brand(brand: String) {
+        let brands: any = await this.pool.query(this.SELECTFROMBRAND, [brand]);
         return brands.rows[0].id
-    };
+    }
 
-    const get_by_color = async (color: string) => {
-        let colors: any = await pool.query(`SELECT * FROM color WHERE color = $1`, [color]);
+    async get_by_color(color: String) {
+        let colors: any = await this.pool.query(this.SELECTFROMCOLOR, [color]);
         return colors.rows[0].id
-    };
+    }
 
-    const get_by_size = async (size: number) => {
-        let sizes: any = await pool.query(`SELECT * FROM size WHERE size = $1`, [size]);
+    async get_by_size(size: number) {
+        let sizes: any = await this.pool.query(this.SELECTFROMSIZE, [size]);
         return sizes.rows[0].id
     }
 
-    const add_brand = async (brand: string) => {
-        const retrive_brand: any = await pool.query(`SELECT * FROM brand WHERE brand = '${brand}';`)
+    async add_brand(brand: string) {
+        const retrive_brand: any = await this.pool.query(this.SELECTFROMBRAND, [brand])
         if (retrive_brand.rowCount > 0) {
             return true;
         }
 
-        await pool.query(`INSERT INTO brand (brand) VALUES ('${brand}')`)
+        await this.pool.query(this.INSERTBRAND, [brand])
     }
 
-    const add_color = async (color: string) => {
-        const retrive_color: any = await pool.query(`SELECT * FROM color WHERE color = '${color}';`)
+
+    async add_color(color: string) {
+        const retrive_color: any = await this.pool.query(this.SELECTFROMCOLOR, [color])
         if (retrive_color.rows.length !== 0) {
             return true;
         }
-        await pool.query(`INSERT INTO color (color) VALUES ('${color}');`);
+        await this.pool.query(this.INSERTCOLOR, [color]);
     }
 
-    const add_size = async (size: any) => {
-        const retrive_size: any = await pool.query(`SELECT * FROM size WHERE size = '${size}';`)
+
+    async add_size(size: any) {
+        const retrive_size: any = await this.pool.query(this.SELECTFROMSIZE, [size])
         if (retrive_size.rowCount > 0) {
             return true;
         }
-        await pool.query(`INSERT INTO size (size) VALUES ('${size}')`);
+        await this.pool.query(this.INSERTSIZE, [size]);
     }
 
-    const display_color = async () => {
-        const stock: any = await pool.query(`SELECT * FROM color`);
+    async display_color() {
+        const stock: any = await this.pool.query(this.LISTCOLORS);
         return stock.rows
     }
 
-    const display_size = async () => {
-        const stock: any = await pool.query(`SELECT * FROM size`);
+    async display_size() {
+        const stock: any = await this.pool.query(this.LISTSIZE);
         return stock.rows
     }
 
-    const display_brand = async () => {
-        const stock: any = await pool.query(`SELECT * FROM brand`);
+    async display_brand() {
+        const stock: any = await this.pool.query(``);
         return stock.rows
     }
 
-    const get_me_a_shoe = async (shoe_id: number) => {
-        let shoe: any = await pool.query(`SELECT * FROM shoes WHERE id = $1`, [shoe_id]);
+    async get_me_a_shoe(shoe_id: number) {
+        let shoe: any = await this.pool.query(this.GETSHOEID, [shoe_id]);
         return shoe.rows[0].id
     }
-    
-    return {
-        get_by_brand,
-        get_by_color,
-        get_by_size,
-        add_brand,
-        add_color,
-        add_size,
-        display_brand,
-        display_color,
-        display_size,
-        search_shoes: get_me_a_shoe
+
+    get_pool() {
+        return this.pool;
     }
 }
